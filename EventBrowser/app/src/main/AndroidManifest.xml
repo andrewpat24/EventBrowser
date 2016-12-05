@@ -21,7 +21,7 @@
         </activity>
 
         <activity
-            android:launchMode="singleInstance"
+            
             android:name=".Story_list_activity"
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait"

@@ -1,6 +1,5 @@
 package com.example.andrewpat24.eventbrowser;
 
-
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -10,14 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
-import java.util.List;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,15 +47,6 @@ public class Story_list_fragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,9 +82,7 @@ public class Story_list_fragment extends Fragment {
                 return false;
             }
         });
-
         return mView;
-
     }
 
     protected void updateUI(String query) {

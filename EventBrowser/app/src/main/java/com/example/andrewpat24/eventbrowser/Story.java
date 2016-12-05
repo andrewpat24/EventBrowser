@@ -45,7 +45,7 @@ public class Story {
 
         ArrayList<Story> processedList = new ArrayList<Story>();
         for(Story story : storyList){
-            if(story.getName().contains(query)){
+            if(story.getName().toLowerCase().contains(query.toLowerCase())){
                 processedList.add(story);
             }
         }
