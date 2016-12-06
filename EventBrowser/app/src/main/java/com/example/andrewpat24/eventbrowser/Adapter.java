@@ -34,7 +34,6 @@ public class Adapter extends RecyclerView.Adapter<StoryHolder>{
     @Override
     public void onBindViewHolder(StoryHolder holder, int position) {
         Story story = mStories.get(position);
-        //Continue from here
         holder.setFragment(story_list_fragment);
         holder.bindStory(story);
     }

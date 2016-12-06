@@ -49,7 +49,7 @@
                 <LinearLayout
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_weight="8"
                     android:id="@+id/detailContentContainer">
                     <TextView
@@ -60,6 +60,14 @@
                         android:textSize="24dp"
                         android:id="@+id/story_description"
                         android:text="description"/>
+
+                    <Button
+                        android:id="@+id/directionsButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Get Directions"
+                        android:onClick="getDirections"
+                        />
 
 
                 </LinearLayout>
