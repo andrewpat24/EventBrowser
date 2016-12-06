@@ -3,7 +3,9 @@ package com.example.andrewpat24.eventbrowser;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +13,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,8 @@ public class Story_list_fragment extends Fragment {
     private RecyclerView mRecyclerView;
     private View mView;
     private Adapter mAdapter;
+    private SwipeRefreshLayout mSwipeContainer;
+
 
     public Story_list_fragment() {
         // Required empty public constructor
@@ -50,7 +53,6 @@ public class Story_list_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         mView = inflater.inflate(R.layout.story_list_fragment_layout, container, false);
         mRecyclerView = (RecyclerView) mView.findViewById(R.id.card_recycler_view);
@@ -81,6 +83,16 @@ public class Story_list_fragment extends Fragment {
                 return false;
             }
         });
+
+        mSwipeContainer = (SwipeRefreshLayout) mView.findViewById(R.id.swipeContainer);
+        mSwipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchLatest();
+            }
+        });
+
+
         return mView;
     }
 
@@ -93,6 +105,18 @@ public class Story_list_fragment extends Fragment {
             mRecyclerView.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+    protected void fetchLatest(){
+        DataCenter.getDatacenter(mView.getContext());
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                updateUI("");
+                mSwipeContainer.setRefreshing(false);
+            }
+        }, 2000);
     }
 
 }
