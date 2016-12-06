@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,7 @@ public class Story_fragment extends Fragment {
         title.setText(mStory.getName());
 
         TextView description = (TextView) mView.findViewById(R.id.story_description);
-        description.setText(mStory.getDescription());
+        description.setText(Html.fromHtml(mStory.getDescription()));
 
         mImageView= (ImageView) mView.findViewById(R.id.story_image);
         ImageRequest request = new ImageRequest(mStory.getImage(),

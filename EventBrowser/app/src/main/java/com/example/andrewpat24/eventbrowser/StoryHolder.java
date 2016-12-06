@@ -10,6 +10,7 @@ import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -55,7 +56,7 @@ public class StoryHolder extends RecyclerView.ViewHolder implements View.OnClick
         mStory = story;
 
         mStoryName.setText(mStory.getName());
-        mStoryDescription.setText(mStory.getDescription());
+        mStoryDescription.setText(Html.fromHtml(mStory.getDescription()));
 //      mImageView.setBackgroundResource(mStory.getImageResourceID());
         ImageRequest request = new ImageRequest(mStory.getImage(),
                 new Response.Listener<Bitmap>() {
