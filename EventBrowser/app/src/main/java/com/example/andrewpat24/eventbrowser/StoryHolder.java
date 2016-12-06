@@ -66,7 +66,7 @@ public class StoryHolder extends RecyclerView.ViewHolder implements View.OnClick
                 }, 0, 0, null,
                 new Response.ErrorListener() {
                     public void onErrorResponse(VolleyError error) {
-                        //mImageView.setImageResource(R.drawable.image_load_error);
+                        mImageView.setImageResource(R.mipmap.placeholder);
                     }
                 });
         WebMessenger.getInstance(mFragment.getContext()).addToRequestQueue(request);

@@ -53,6 +53,14 @@ public class JSONModel{
                 }
 
                 story = new Story(object.getString("name"),object.getString("description"),image);
+
+                if(object.has("id"))
+                    story.setID(object.getInt("id"));
+                if(object.has("lat"))
+                    story.setLatitude(object.getDouble("lat"));
+                if(object.has("lon"))
+                    story.setLongitude(object.getDouble("lon"));
+
                 stories.add(story);
             }
             DataCenter.updateActivity();
