@@ -14,6 +14,15 @@ public class Story {
     private String mDescription;
     private int mImageResourceID;
 
+    private String mImage;
+
+    public  Story(String name, String description, String image){
+        mUUID = UUID.randomUUID();
+        mName = name;
+        mDescription = description;
+        mImage = image;
+    }
+
     public Story(String name, String description, int imageResourceID){
         mUUID = UUID.randomUUID();
         mName = name;
@@ -35,6 +44,10 @@ public class Story {
 
     public int getImageResourceID() {
         return mImageResourceID;
+    }
+
+    public String getImage() {
+        return mImage;
     }
 
     public static ArrayList<Story> processStoriesList(ArrayList<Story> storyList, String query){

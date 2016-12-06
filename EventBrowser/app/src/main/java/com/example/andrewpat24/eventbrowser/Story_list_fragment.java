@@ -22,7 +22,6 @@ import java.util.ArrayList;
  */
 public class Story_list_fragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private RecyclerView mRecyclerView;
     private View mView;
@@ -87,12 +86,13 @@ public class Story_list_fragment extends Fragment {
 
     protected void updateUI(String query) {
 
-        StoryLibrary storyLibrary = StoryLibrary.getInstance();
+        StoryLibrary storyLibrary = StoryLibrary.getInstance(mView.getContext());
         ArrayList<Story> stories = Story.processStoriesList(storyLibrary.getStories(), query);
-
-        mAdapter = new Adapter(stories, this);
-        mRecyclerView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
+        if (stories != null && stories.size() != 0) {
+            mAdapter = new Adapter(stories, this);
+            mRecyclerView.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
 }

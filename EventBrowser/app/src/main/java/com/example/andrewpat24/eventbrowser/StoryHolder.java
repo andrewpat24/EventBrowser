@@ -2,6 +2,7 @@ package com.example.andrewpat24.eventbrowser;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.net.Uri;
@@ -13,6 +14,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 
 import org.w3c.dom.Text;
 
@@ -51,7 +56,20 @@ public class StoryHolder extends RecyclerView.ViewHolder implements View.OnClick
 
         mStoryName.setText(mStory.getName());
         mStoryDescription.setText(mStory.getDescription());
-        mImageView.setBackgroundResource(mStory.getImageResourceID());
+//      mImageView.setBackgroundResource(mStory.getImageResourceID());
+        ImageRequest request = new ImageRequest(mStory.getImage(),
+                new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap bitmap) {
+                        mImageView.setImageBitmap(bitmap);
+                    }
+                }, 0, 0, null,
+                new Response.ErrorListener() {
+                    public void onErrorResponse(VolleyError error) {
+                        //mImageView.setImageResource(R.drawable.image_load_error);
+                    }
+                });
+        WebMessenger.getInstance(mFragment.getContext()).addToRequestQueue(request);
 
     }
 

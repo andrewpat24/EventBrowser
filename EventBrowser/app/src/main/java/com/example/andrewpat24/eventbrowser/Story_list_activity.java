@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class Story_list_activity extends AppCompatActivity {
 
     private Story_list_fragment storyFragmentObj;
