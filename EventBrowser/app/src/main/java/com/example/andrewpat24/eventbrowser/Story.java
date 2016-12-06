@@ -13,6 +13,17 @@ public class Story {
     private String mName;
     private String mDescription;
     private int mImageResourceID;
+    private String mImage;
+    private int mID;
+    private double mLatitude;
+    private double mLongitude;
+
+    public  Story(String name, String description, String image){
+        mUUID = UUID.randomUUID();
+        mName = name;
+        mDescription = description;
+        mImage = image;
+    }
 
     public Story(String name, String description, int imageResourceID){
         mUUID = UUID.randomUUID();
@@ -35,6 +46,34 @@ public class Story {
 
     public int getImageResourceID() {
         return mImageResourceID;
+    }
+
+    public String getImage() {
+        return mImage;
+    }
+
+    public int getID() {
+        return mID;
+    }
+
+    public void setID(int ID) {
+        mID = ID;
+    }
+
+    public double getLatitude() {
+        return mLatitude;
+    }
+
+    public double getLongitude() {
+        return mLongitude;
+    }
+
+    public void setLatitude(double latitude) {
+        mLatitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        mLongitude = longitude;
     }
 
     public static ArrayList<Story> processStoriesList(ArrayList<Story> storyList, String query){
