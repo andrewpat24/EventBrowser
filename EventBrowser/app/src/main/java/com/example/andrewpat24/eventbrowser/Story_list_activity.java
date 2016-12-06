@@ -3,7 +3,7 @@ package com.example.andrewpat24.eventbrowser;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
+import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,10 +13,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 public class Story_list_activity extends AppCompatActivity {
 
     private Story_list_fragment storyFragmentObj;
+    private String SEARCHKEY = "Query";
+    private boolean mDoubleBackToExitPressedOnce = false;
 
 
 	@Override
@@ -48,6 +51,9 @@ public class Story_list_activity extends AppCompatActivity {
             }
             @Override
             public boolean onQueryTextChange(String search) {
+                if (storyFragmentObj == null)
+                    return true;
+
                 updateRecycler(search);
                 return true;
             }
@@ -65,15 +71,17 @@ public class Story_list_activity extends AppCompatActivity {
             }
         });
 
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            searchView.setQuery(intent.getStringExtra((SearchManager.QUERY)),false);
+            storyFragmentObj =  Story_list_fragment.newInstance(intent.getStringExtra((SearchManager.QUERY)));
+        }
+
         if(storyFragmentObj == null) {
             storyFragmentObj = Story_list_fragment.newInstance("");
         }
 
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            storyFragmentObj =  Story_list_fragment.newInstance(intent.getStringExtra((SearchManager.QUERY)));
-        }
-
         fragmentManager.beginTransaction().replace(R.id.card_list_container_fragment, storyFragmentObj).commit();
+
 	}
 
     @Override
@@ -88,8 +96,7 @@ public class Story_list_activity extends AppCompatActivity {
         storyFragmentObj.updateUI(search);
     }
 
-    public void hideSoftKeyboard()
-    {
+    public void hideSoftKeyboard() {
         InputMethodManager imm = (InputMethodManager) Story_list_activity.this.getSystemService(Context.
                 INPUT_METHOD_SERVICE);
         if (Story_list_activity.this.getCurrentFocus() != null) {
@@ -100,4 +107,23 @@ public class Story_list_activity extends AppCompatActivity {
         linearLayout.requestFocus();
     }
 
+    @Override
+    public void onBackPressed() {
+        if (mDoubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            finish();
+            return;
+        }
+
+        this.mDoubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                mDoubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }
 }

@@ -8,22 +8,22 @@
 
    <LinearLayout
        android:layout_width="match_parent"
-       android:layout_height="match_parent"
+       android:layout_height="wrap_content"
        android:orientation="vertical">
-      
+
        <android.support.v4.widget.NestedScrollView
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:id="@+id/card_list_nested_scroll_view">
 
-           <android.support.v7.widget.RecyclerView
-               android:layout_height="wrap_content"
-               android:layout_width="match_parent"
-               android:id="@+id/card_recycler_view"
-               android:paddingLeft="50dp"
-               android:paddingBottom="20dp">
+                <android.support.v7.widget.RecyclerView
+                    android:layout_centerInParent="true"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:id="@+id/card_recycler_view"
 
-           </android.support.v7.widget.RecyclerView>
+                    android:paddingBottom="20dp">
+                </android.support.v7.widget.RecyclerView>
 
        </android.support.v4.widget.NestedScrollView>
    </LinearLayout>

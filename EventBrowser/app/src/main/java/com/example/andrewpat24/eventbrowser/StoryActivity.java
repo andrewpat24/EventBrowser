@@ -47,8 +47,6 @@ public class StoryActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent myIntent = new Intent(this, Story_list_activity.class);
-        startActivity(myIntent);
         finish();
         return;
 
