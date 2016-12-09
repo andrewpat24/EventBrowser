@@ -9,7 +9,6 @@ import android.webkit.WebViewClient;
 public class WebViewActivity extends Activity {
 
     private WebView mWebViewActivity;
-    private String url;
 
     public WebViewActivity(){};
 
