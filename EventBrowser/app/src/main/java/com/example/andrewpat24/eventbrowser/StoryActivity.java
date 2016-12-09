@@ -2,10 +2,12 @@ package com.example.andrewpat24.eventbrowser;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.view.View;
 
 import java.util.UUID;
 
@@ -49,6 +51,18 @@ public class StoryActivity extends FragmentActivity {
         super.onBackPressed();
         finish();
         return;
+
+    }
+
+    public void getDirections(View view){
+        // TODO: Concatenate location of event so that maps opens to event location once data is available
+
+        String url = "https://www.google.com/maps";
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
 
     }
 }

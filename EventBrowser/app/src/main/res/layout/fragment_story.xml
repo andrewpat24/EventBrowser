@@ -19,6 +19,7 @@
         android:weightSum="20"
         android:backgroundTint="#ffffff">
 
+
         <ImageView
             android:id="@+id/story_image"
             android:layout_width="wrap_content"
@@ -47,7 +48,7 @@
                 <LinearLayout
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_weight="8"
                     android:id="@+id/detailContentContainer">
                     <TextView
@@ -59,9 +60,17 @@
                         android:id="@+id/story_description"
                         android:text="description"/>
 
-
+                    <Button
+                        android:id="@+id/directionsButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Get Directions"
+                        android:onClick="getDirections"
+                        />
                 </LinearLayout>
             </LinearLayout>
 
+
     </android.support.v4.widget.NestedScrollView>
+
 </android.support.v7.widget.CardView>
