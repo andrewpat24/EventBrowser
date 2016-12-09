@@ -19,10 +19,11 @@ public class StoryActivity extends FragmentActivity {
 
     private static final String EXTRA_STORY_ID = "com.example.andrewpat24.eventbrowser.story_id";
 
+    private UUID mStoryID;
     protected Fragment createFragment() {
-        UUID storyID = (UUID) getIntent().getSerializableExtra(EXTRA_STORY_ID);
+         mStoryID = (UUID) getIntent().getSerializableExtra(EXTRA_STORY_ID);
 
-        return Story_fragment.newInstance(storyID);
+        return Story_fragment.newInstance(mStoryID);
     }
 
     @Override
@@ -55,14 +56,13 @@ public class StoryActivity extends FragmentActivity {
     }
 
     public void getDirections(View view){
-        // TODO: Concatenate location of event so that maps opens to event location once data is available
-
-        String url = "https://www.google.com/maps";
-
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-
-        intent.setData(Uri.parse(url));
-        startActivity(intent);
+        Story story = StoryLibrary.getInstance(view.getContext()).getStory(mStoryID);
+        String longitude =  Double.toString(story.getLongitude());
+        String latitude = Double.toString(story.getLatitude());
+        Uri gmmIntentUri = Uri.parse("google.navigation:q=" + latitude + "," +longitude);
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
 
     }
 }
