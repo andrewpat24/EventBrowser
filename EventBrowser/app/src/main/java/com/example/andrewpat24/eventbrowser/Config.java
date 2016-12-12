@@ -10,7 +10,7 @@ public class Config {
 
 
     //General configs
-    private static int PAGE_SIZE = 50;
+    private static int PAGE_SIZE = 20;
 
     //Meetup API configs
     private static String KEY_MEETUP = "1654194f297f7f4626dc757dc7a1d";

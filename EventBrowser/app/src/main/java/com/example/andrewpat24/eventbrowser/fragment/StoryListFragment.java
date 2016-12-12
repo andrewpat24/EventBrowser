@@ -99,6 +99,7 @@ public class StoryListFragment extends Fragment {
                         mRecyclerView.invalidate();
                         mAdapter.updateDataSet(stories);
                         mRecyclerView.setAdapter(mAdapter);
+                        mSwipeContainer.setRefreshing(false);
                     }
                 }
 
@@ -115,7 +116,6 @@ public class StoryListFragment extends Fragment {
 
     protected void fetchLatest(){
         updateUI("");
-        mSwipeContainer.setRefreshing(false);
     }
 
 }
