@@ -1,12 +1,8 @@
-package com.example.andrewpat24.eventbrowser;
+package com.example.andrewpat24.eventbrowser.fragment;
 
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
@@ -17,16 +13,16 @@ import android.text.style.URLSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
+import com.example.andrewpat24.eventbrowser.R;
+import com.example.andrewpat24.eventbrowser.controller.Story;
+import com.example.andrewpat24.eventbrowser.interfaceAPI.WebMessenger;
+import com.example.andrewpat24.eventbrowser.activity.WebViewActivity;
 
 import java.util.UUID;
 
@@ -34,18 +30,18 @@ import java.util.UUID;
  * Created by aculanay on 11/26/16.
  */
 
-public class Story_fragment extends Fragment {
+public class StoryFragment extends Fragment {
 
     public static final String ARG_STORY_ID = "story_id";
     private Story mStory;
     private ImageView mImageView;
     private View mView;
 
-    public static Story_fragment newInstance(UUID mUuid){
+    public static StoryFragment newInstance(UUID mUuid){
         Bundle args = new Bundle();
         args.putSerializable(ARG_STORY_ID, mUuid);
 
-        Story_fragment fragment = new Story_fragment();
+        StoryFragment fragment = new StoryFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,7 +57,7 @@ public class Story_fragment extends Fragment {
 
         mView = inflater.inflate(R.layout.fragment_story, container, false);
         UUID storyID = (UUID)getArguments().getSerializable(ARG_STORY_ID);
-        mStory = StoryLibrary.getInstance(mView.getContext()).getStory(storyID);
+        mStory = Story.getStory(storyID);
 
         TextView title = (TextView) mView.findViewById(R.id.story_title);
         title.setText(mStory.getName());
@@ -95,7 +91,6 @@ public class Story_fragment extends Fragment {
         ClickableSpan clickable = new ClickableSpan() {
             @Override
             public void onClick(View view) {
-                // TODO: Intent to start webview activity
                 Bundle bundle = new Bundle();
                 bundle.putString("url", span.getURL());
                 Intent intent = new Intent(getContext(), WebViewActivity.class);

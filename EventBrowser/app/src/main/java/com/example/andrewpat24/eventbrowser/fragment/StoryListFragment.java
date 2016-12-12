@@ -1,9 +1,8 @@
-package com.example.andrewpat24.eventbrowser;
+package com.example.andrewpat24.eventbrowser.fragment;
 
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,15 +12,16 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.example.andrewpat24.eventbrowser.R;
+import com.example.andrewpat24.eventbrowser.controller.Story;
+import com.example.andrewpat24.eventbrowser.controller.StoryLibrary;
+import com.example.andrewpat24.eventbrowser.adapter.Adapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Story_list_fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class Story_list_fragment extends Fragment {
+import java.util.List;
+
+public class StoryListFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     private static final String ARG_PARAM1 = "param1";
     private RecyclerView mRecyclerView;
@@ -29,21 +29,12 @@ public class Story_list_fragment extends Fragment {
     private Adapter mAdapter;
     private SwipeRefreshLayout mSwipeContainer;
 
-
-    public Story_list_fragment() {
+    public StoryListFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @return A new instance of fragment Story_list_fragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Story_list_fragment newInstance(String param1) {
-        Story_list_fragment fragment = new Story_list_fragment();
+    public static StoryListFragment newInstance(String param1) {
+        StoryListFragment fragment = new StoryListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         fragment.setArguments(args);
@@ -57,9 +48,7 @@ public class Story_list_fragment extends Fragment {
         mView = inflater.inflate(R.layout.story_list_fragment_layout, container, false);
         mRecyclerView = (RecyclerView) mView.findViewById(R.id.card_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.addItemDecoration(new VerticalSpaceItemDecorator(50));
-        updateUI(getArguments().getString(ARG_PARAM1));
-
+        mRecyclerView.addItemDecoration(new VerticalSpaceItemDecorator(5));
         mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -92,31 +81,41 @@ public class Story_list_fragment extends Fragment {
             }
         });
 
+        updateUI(getArguments().getString(ARG_PARAM1));
 
         return mView;
     }
 
-    protected void updateUI(String query) {
+    public void updateUI(String query){
+        if(mAdapter == null)
+            mAdapter = new Adapter(this);
 
-        StoryLibrary storyLibrary = StoryLibrary.getInstance(mView.getContext());
-        ArrayList<Story> stories = Story.processStoriesList(storyLibrary.getStories(), query);
-        if (stories != null && stories.size() != 0) {
-            mAdapter = new Adapter(stories, this);
-            mRecyclerView.setAdapter(mAdapter);
-            mAdapter.notifyDataSetChanged();
-        }
+        StoryLibrary storyLibrary = StoryLibrary.getStoryLibrary(new StoryLibrary.OnResponseListener() {
+                @Override
+                public void onSuccess(List<Story> stories) {
+                    if (stories.size() > 0) {
+                        //textView.setVisibility(View.GONE);
+                        //mRecyclerView.setVisibility(View.VISIBLE);
+                        mRecyclerView.invalidate();
+                        mAdapter.updateDataSet(stories);
+                        mRecyclerView.setAdapter(mAdapter);
+                        mSwipeContainer.setRefreshing(false);
+                    }
+                }
+
+                @Override
+                public void onFailure(String errorMessage) {
+//                textView.setVisibility(View.VISIBLE);
+//                textView.setText("Failed to retrieve data");
+                    Toast.makeText(StoryListFragment.this.getActivity(), "Failed to retrieve data", Toast.LENGTH_SHORT).show();
+                }
+            });
+            storyLibrary.cancelAllRequests();
+            storyLibrary.sendRequest(query);
     }
 
     protected void fetchLatest(){
-        DataCenter.getDatacenter(mView.getContext());
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                updateUI("");
-                mSwipeContainer.setRefreshing(false);
-            }
-        }, 2000);
+        updateUI("");
     }
 
 }

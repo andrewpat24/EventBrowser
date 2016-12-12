@@ -1,5 +1,7 @@
 package com.example.andrewpat24.eventbrowser;
 
+import android.net.Uri;
+
 /**
  * Created by Ajinkya on 05/12/16.
  */
@@ -8,26 +10,23 @@ public class Config {
 
 
     //General configs
-    private static int PAGE_SIZE = 10;
+    private static int PAGE_SIZE = 20;
 
     //Meetup API configs
     private static String KEY_MEETUP = "1654194f297f7f4626dc757dc7a1d";
-    private static String RECOMMENDED_MEETUP = "https://api.meetup.com/recommended/groups?&sign=true&photo-host=secure";
-    private static String SEARCH_MEETUP = "https://api.meetup.com/find/groups?&sign=true&photo-host=secure";
+    private static String HIT_MEETUP = "https://api.meetup.com/find/groups?&sign=true&photo-host=secure";
 
-    public static int getPAGE_SIZE() {
-        return PAGE_SIZE;
-    }
+    public static String getData(String query) {
+        StringBuilder recommend = new StringBuilder(HIT_MEETUP);
+        recommend.append("&page=");
+        recommend.append(PAGE_SIZE);
+        recommend.append("&key=");
+        recommend.append(KEY_MEETUP);
 
-    public static String getKEY_MEETUP() {
-        return KEY_MEETUP;
-    }
-
-    public static String getRECOMMENDED_MEETUP() {
-        return RECOMMENDED_MEETUP;
-    }
-
-    public static String getSEARCH_MEETUP() {
-        return SEARCH_MEETUP;
+        if(query.length() > 1) {
+            recommend.append("&text=");
+            recommend.append(Uri.encode(query));
+        }
+        return recommend.toString();
     }
 }
