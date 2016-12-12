@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -15,17 +16,24 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.andrewpat24.eventbrowser.R;
+import com.example.andrewpat24.eventbrowser.app.App;
 import com.example.andrewpat24.eventbrowser.fragment.StoryListFragment;
+
+import java.util.UUID;
 
 public class StoryListActivity extends AppCompatActivity {
 
     private StoryListFragment storyFragmentObj;
     private boolean mDoubleBackToExitPressedOnce = false;
-
+    private StoryListActivity mStoryListActivity;
+    private UUID mUUID;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+        mStoryListActivity = this;
 		super.onCreate(savedInstanceState);
+        mUUID = UUID.randomUUID();
+        App.setStoryListActivityUUID(mUUID);
 		setContentView(R.layout.activity_storylist);
         Intent intent = getIntent();
 
@@ -67,6 +75,7 @@ public class StoryListActivity extends AppCompatActivity {
         });
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             searchView.setQuery(intent.getStringExtra((SearchManager.QUERY)),false);
+
             storyFragmentObj =  StoryListFragment.newInstance(intent.getStringExtra(SearchManager.QUERY));
         }
 
@@ -117,5 +126,18 @@ public class StoryListActivity extends AppCompatActivity {
                 mDoubleBackToExitPressedOnce=false;
             }
         }, 2000);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(!App.getStoryListActivityUUID().equals(mUUID)) {
+                    mStoryListActivity.finish();
+                }
+            }
+        },2000);
     }
 }
