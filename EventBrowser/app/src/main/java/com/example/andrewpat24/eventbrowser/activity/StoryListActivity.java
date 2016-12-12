@@ -1,4 +1,4 @@
-package com.example.andrewpat24.eventbrowser;
+package com.example.andrewpat24.eventbrowser.activity;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -10,24 +10,23 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.example.andrewpat24.eventbrowser.R;
+import com.example.andrewpat24.eventbrowser.fragment.StoryListFragment;
 
-public class Story_list_activity extends AppCompatActivity {
+public class StoryListActivity extends AppCompatActivity {
 
-    private Story_list_fragment storyFragmentObj;
-    private String SEARCHKEY = "Query";
+    private StoryListFragment storyFragmentObj;
     private boolean mDoubleBackToExitPressedOnce = false;
 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_storylist);
         Intent intent = getIntent();
 
         View view = findViewById(android.R.id.content);
@@ -40,7 +39,7 @@ public class Story_list_activity extends AppCompatActivity {
         });
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        storyFragmentObj = (Story_list_fragment) fragmentManager.findFragmentById(R.id.activity_main);
+        storyFragmentObj = (StoryListFragment) fragmentManager.findFragmentById(R.id.activity_main);
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         final SearchView searchView = (SearchView) findViewById(R.id.search_view);
@@ -48,38 +47,31 @@ public class Story_list_activity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
             public boolean onQueryTextSubmit(String search) {
-                updateRecycler(search);
-                return true;
+                if(search.equals("")|| search.length()>1) {
+                    updateRecycler(search);
+                    return false;
+                }
+                else {
+                    Toast.makeText(StoryListActivity.this, "Must provide more than one character", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
             }
             @Override
             public boolean onQueryTextChange(String search) {
                 if (storyFragmentObj == null)
                     return true;
-
-                updateRecycler(search);
+                if(search.length() > 1 || search.equals(""))
+                    updateRecycler(search);
                 return true;
             }
         });
-
-        Button btnSearch = (Button) findViewById(R.id.btn_search);
-        btnSearch.setOnClickListener( new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-
-                SearchView searchView = (SearchView) findViewById(R.id.search_view);
-                hideSoftKeyboard();
-                searchView.setQuery(searchView.getQuery(),true);
-            }
-        });
-
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             searchView.setQuery(intent.getStringExtra((SearchManager.QUERY)),false);
-            storyFragmentObj =  Story_list_fragment.newInstance(intent.getStringExtra((SearchManager.QUERY)));
+            storyFragmentObj =  StoryListFragment.newInstance(intent.getStringExtra(SearchManager.QUERY));
         }
 
         if(storyFragmentObj == null) {
-            storyFragmentObj = Story_list_fragment.newInstance("");
+            storyFragmentObj = StoryListFragment.newInstance("");
         }
 
         fragmentManager.beginTransaction().replace(R.id.card_list_container_fragment, storyFragmentObj).commit();
@@ -90,19 +82,17 @@ public class Story_list_activity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         hideSoftKeyboard();
-
     }
 
     protected void updateRecycler(String search) {
-
         storyFragmentObj.updateUI(search);
     }
 
     public void hideSoftKeyboard() {
-        InputMethodManager imm = (InputMethodManager) Story_list_activity.this.getSystemService(Context.
+        InputMethodManager imm = (InputMethodManager) StoryListActivity.this.getSystemService(Context.
                 INPUT_METHOD_SERVICE);
-        if (Story_list_activity.this.getCurrentFocus() != null) {
-            imm.hideSoftInputFromWindow(Story_list_activity.this.getCurrentFocus().getWindowToken(), 0);
+        if (StoryListActivity.this.getCurrentFocus() != null) {
+            imm.hideSoftInputFromWindow(StoryListActivity.this.getCurrentFocus().getWindowToken(), 0);
         }
 
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.activity_main);
