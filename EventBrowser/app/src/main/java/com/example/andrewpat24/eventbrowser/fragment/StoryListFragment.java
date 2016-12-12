@@ -48,7 +48,7 @@ public class StoryListFragment extends Fragment {
         mView = inflater.inflate(R.layout.story_list_fragment_layout, container, false);
         mRecyclerView = (RecyclerView) mView.findViewById(R.id.card_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.addItemDecoration(new VerticalSpaceItemDecorator(50));
+        mRecyclerView.addItemDecoration(new VerticalSpaceItemDecorator(5));
         mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
