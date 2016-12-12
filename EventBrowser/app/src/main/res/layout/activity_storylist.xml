@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:focusableInTouchMode="true"
-    tools:context="com.example.andrewpat24.eventbrowser.Story_list_activity"
+    tools:context="com.example.andrewpat24.eventbrowser.activity.StoryListActivity"
     android:layout_gravity="center">
 
 
@@ -34,21 +34,6 @@
             android:paddingLeft="5dp"
             android:clickable="false"
             android:iconifiedByDefault="false"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingRight="10dp"
-                android:paddingLeft="2dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp">
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimaryDark"
-                    android:text="@string/search"
-                    android:id="@+id/btn_search"/>
-            </LinearLayout>
 
 
         </LinearLayout>

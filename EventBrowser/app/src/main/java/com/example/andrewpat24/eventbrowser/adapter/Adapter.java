@@ -1,12 +1,16 @@
-package com.example.andrewpat24.eventbrowser;
+package com.example.andrewpat24.eventbrowser.adapter;
 
-import android.graphics.Rect;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.andrewpat24.eventbrowser.R;
+import com.example.andrewpat24.eventbrowser.controller.Story;
+import com.example.andrewpat24.eventbrowser.holder.StoryHolder;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,9 +22,9 @@ public class Adapter extends RecyclerView.Adapter<StoryHolder>{
     private List<Story> mStories;
     private Fragment story_list_fragment;
 
-    public Adapter(List<Story> stories, Fragment story_list_fragment)
+    public Adapter(Fragment story_list_fragment)
     {
-        mStories = stories;
+        mStories = new ArrayList<>();
         this.story_list_fragment = story_list_fragment;
     }
 
@@ -34,7 +38,6 @@ public class Adapter extends RecyclerView.Adapter<StoryHolder>{
     @Override
     public void onBindViewHolder(StoryHolder holder, int position) {
         Story story = mStories.get(position);
-        //Continue from here
         holder.setFragment(story_list_fragment);
         holder.bindStory(story);
     }
@@ -42,5 +45,11 @@ public class Adapter extends RecyclerView.Adapter<StoryHolder>{
     @Override
     public int getItemCount() {
         return mStories.size();
+    }
+
+    public void updateDataSet(List<Story> stories) {
+        this.mStories.clear();
+        this.mStories.addAll(stories);
+        notifyDataSetChanged();
     }
 }

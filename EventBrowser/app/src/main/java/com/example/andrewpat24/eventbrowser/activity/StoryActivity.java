@@ -1,11 +1,17 @@
-package com.example.andrewpat24.eventbrowser;
+package com.example.andrewpat24.eventbrowser.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.view.View;
+
+import com.example.andrewpat24.eventbrowser.R;
+import com.example.andrewpat24.eventbrowser.controller.Story;
+import com.example.andrewpat24.eventbrowser.fragment.StoryFragment;
 
 import java.util.UUID;
 
@@ -15,12 +21,13 @@ import java.util.UUID;
 
 public class StoryActivity extends FragmentActivity {
 
-    private static final String EXTRA_STORY_ID = "com.example.andrewpat24.eventbrowser.story_id";
+    private static final String EXTRA_STORY_ID = "StoryUUID";
 
+    private UUID mStoryID;
     protected Fragment createFragment() {
-        UUID storyID = (UUID) getIntent().getSerializableExtra(EXTRA_STORY_ID);
+         mStoryID = (UUID) getIntent().getSerializableExtra(EXTRA_STORY_ID);
 
-        return Story_fragment.newInstance(storyID);
+        return StoryFragment.newInstance(mStoryID);
     }
 
     @Override
@@ -49,6 +56,17 @@ public class StoryActivity extends FragmentActivity {
         super.onBackPressed();
         finish();
         return;
+
+    }
+
+    public void getDirections(View view){
+        Story story = Story.getStory(mStoryID);
+        String longitude =  Double.toString(story.getLongitude());
+        String latitude = Double.toString(story.getLatitude());
+        Uri gmmIntentUri = Uri.parse("google.navigation:q=" + latitude + "," +longitude);
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
 
     }
 }

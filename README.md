@@ -1,8 +1,16 @@
 #Project-2 Story Finder Finale
 #### Team Number
-TODO - Add your team number here.(Look into Piazza for details)
+
+Team Five (Oh)
+
 #### Team Members
-TODO - Add your team member names here.
+
+Ajinkya Chalke
+
+Andrew Patterson
+
+Ariel Jonas Culanay
+
 #### Youtube video Link
 TODO - Add your team's unlisted youtube video link here.
 
