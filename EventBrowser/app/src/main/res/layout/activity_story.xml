@@ -4,11 +4,19 @@
               android:layout_height="match_parent"
               android:id="@+id/activity_story"
               android:orientation="vertical">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/card_container_fragment"
         android:backgroundTint="#e9e5e5"
         android:background="@drawable/feels"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="325dp"
+        android:id="@+id/map_fragment_container"></FrameLayout>
+
+
 
 </LinearLayout>
