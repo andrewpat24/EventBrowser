@@ -3,6 +3,13 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:context="com.example.andrewpat24.eventbrowser.fragment.StoryListFragment">
+    <TextView
+        android:id="@+id/tvEmptyRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/no_data_found"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:gravity="center"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"

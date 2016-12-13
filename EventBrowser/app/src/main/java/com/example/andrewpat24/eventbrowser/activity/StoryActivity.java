@@ -12,6 +12,7 @@ import android.view.View;
 import com.example.andrewpat24.eventbrowser.R;
 import com.example.andrewpat24.eventbrowser.controller.Story;
 import com.example.andrewpat24.eventbrowser.fragment.StoryFragment;
+import com.google.android.gms.maps.MapFragment;
 
 import java.util.UUID;
 
@@ -42,6 +43,13 @@ public class StoryActivity extends FragmentActivity {
             storyFragmentObj =  createFragment();
 
         fragmentManager.beginTransaction().add(R.id.card_container_fragment, storyFragmentObj).commit();
+
+		com.example.andrewpat24.eventbrowser.fragment.MapFragment mapFragment = (com.example.andrewpat24.eventbrowser.fragment.MapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment_container);
+
+		if(mapFragment == null) {
+			mapFragment = com.example.andrewpat24.eventbrowser.fragment.MapFragment.newInstance();
+			getSupportFragmentManager().beginTransaction().add(R.id.map_fragment_container, mapFragment).commit();
+		}
 
     }
 

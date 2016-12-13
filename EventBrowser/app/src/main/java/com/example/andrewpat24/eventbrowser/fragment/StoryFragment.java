@@ -23,6 +23,12 @@ import com.example.andrewpat24.eventbrowser.R;
 import com.example.andrewpat24.eventbrowser.controller.Story;
 import com.example.andrewpat24.eventbrowser.interfaceAPI.WebMessenger;
 import com.example.andrewpat24.eventbrowser.activity.WebViewActivity;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.UUID;
 
@@ -30,12 +36,13 @@ import java.util.UUID;
  * Created by aculanay on 11/26/16.
  */
 
-public class StoryFragment extends Fragment {
+public class StoryFragment extends Fragment implements OnMapReadyCallback {
 
     public static final String ARG_STORY_ID = "story_id";
     private Story mStory;
     private ImageView mImageView;
     private View mView;
+    private GoogleMap mMap;
 
     public static StoryFragment newInstance(UUID mUuid){
         Bundle args = new Bundle();
@@ -81,6 +88,10 @@ public class StoryFragment extends Fragment {
         WebMessenger.getInstance(mView.getContext()).addToRequestQueue(request);
         //imageView.setBackgroundResource(mStory.getImageResourceID());
 
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
         return mView;
     }
 
@@ -119,6 +130,25 @@ public class StoryFragment extends Fragment {
         }
     }
 
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Add a marker in Sydney and move the camera
+        LatLng eventLocation = new LatLng(mStory.getLatitude(), mStory.getLongitude());
+        mMap.addMarker(new MarkerOptions().position(eventLocation));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(eventLocation));
+		mMap.setMinZoomPreference(13.45321f);
+    }
 
 
 
