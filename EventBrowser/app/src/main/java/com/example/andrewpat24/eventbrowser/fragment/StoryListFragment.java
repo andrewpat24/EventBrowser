@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.andrewpat24.eventbrowser.R;
@@ -28,6 +29,7 @@ public class StoryListFragment extends Fragment {
     private View mView;
     private Adapter mAdapter;
     private SwipeRefreshLayout mSwipeContainer;
+    private TextView mTextView;
 
     public StoryListFragment() {
         // Required empty public constructor
@@ -81,6 +83,9 @@ public class StoryListFragment extends Fragment {
             }
         });
 
+        mTextView = (TextView) mView.findViewById(R.id.tvEmptyRecyclerView);
+        mTextView.setVisibility(View.GONE);
+
         updateUI(getArguments().getString(ARG_PARAM1));
 
         return mView;
@@ -94,19 +99,23 @@ public class StoryListFragment extends Fragment {
                 @Override
                 public void onSuccess(List<Story> stories) {
                     if (stories.size() > 0) {
-                        //textView.setVisibility(View.GONE);
-                        //mRecyclerView.setVisibility(View.VISIBLE);
+                        mTextView.setVisibility(View.GONE);
+                        mRecyclerView.setVisibility(View.VISIBLE);
                         mRecyclerView.invalidate();
                         mAdapter.updateDataSet(stories);
                         mRecyclerView.setAdapter(mAdapter);
                         mSwipeContainer.setRefreshing(false);
                     }
+                    else{
+                        mTextView.setVisibility(View.VISIBLE);
+                        mRecyclerView.setVisibility(View.GONE);
+                    }
                 }
 
                 @Override
                 public void onFailure(String errorMessage) {
-//                textView.setVisibility(View.VISIBLE);
-//                textView.setText("Failed to retrieve data");
+                    mTextView.setVisibility(View.VISIBLE);
+                    mRecyclerView.setVisibility(View.GONE);
                     Toast.makeText(StoryListFragment.this.getActivity(), "Failed to retrieve data", Toast.LENGTH_SHORT).show();
                 }
             });
