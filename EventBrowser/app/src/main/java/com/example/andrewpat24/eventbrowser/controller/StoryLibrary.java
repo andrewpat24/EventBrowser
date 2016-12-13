@@ -32,7 +32,7 @@ public class  StoryLibrary {
 
         int method = Request.Method.GET;
         String url = Config.getData(query);
-        Log.i(this.getClass().getName(), url);
+        Log.i("API Url", url);
 
         JsonArrayRequest request
                 = new JsonArrayRequest(

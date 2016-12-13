@@ -13,14 +13,20 @@
             <android.support.v4.widget.NestedScrollView
                 android:id="@+id/card_list_nested_scroll_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical"
+                android:verticalScrollbarPosition="defaultPosition"
+                android:fadeScrollbars="true"
+                android:scrollbarFadeDuration="2000"
+                android:scrollbarThumbVertical="@color/cardview_dark_background"
+                android:scrollbarSize="5dp"
+                >
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/card_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-
                     android:paddingBottom="20dp">
                 </android.support.v7.widget.RecyclerView>
 
