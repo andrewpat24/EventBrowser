@@ -3,6 +3,7 @@
           package="com.example.andrewpat24.eventbrowser">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use

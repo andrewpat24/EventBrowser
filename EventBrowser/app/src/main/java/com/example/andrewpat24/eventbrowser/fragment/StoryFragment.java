@@ -118,10 +118,15 @@ public class StoryFragment extends Fragment implements OnMapReadyCallback {
         CharSequence sequence = Html.fromHtml(html);
         SpannableStringBuilder strBuilder = new SpannableStringBuilder(sequence);
         URLSpan[] urls = strBuilder.getSpans(0, sequence.length(), URLSpan.class);
-        for(URLSpan span : urls){
-            makeLinkClickable(strBuilder,span);
+        if(urls.length == 0){
             t.setText(strBuilder);
-            t.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+        else {
+            for (URLSpan span : urls) {
+                makeLinkClickable(strBuilder, span);
+                t.setText(strBuilder);
+                t.setMovementMethod(LinkMovementMethod.getInstance());
+            }
         }
     }
 
@@ -139,9 +144,10 @@ public class StoryFragment extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng eventLocation = new LatLng(mStory.getLatitude(), mStory.getLongitude());
+        mMap.addMarker(new MarkerOptions().position(eventLocation));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(eventLocation));
+		mMap.setMinZoomPreference(13.45321f);
     }
 
 
