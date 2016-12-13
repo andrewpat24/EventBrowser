@@ -19,7 +19,7 @@
                 android:fadeScrollbars="true"
                 android:scrollbarFadeDuration="2000"
                 android:scrollbarThumbVertical="@color/cardview_dark_background"
-                android:scrollbarSize="5dp"
+                android:scrollbarSize="10dp"
                 >
 
                 <android.support.v7.widget.RecyclerView
