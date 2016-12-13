@@ -107,10 +107,15 @@ public class StoryFragment extends Fragment {
         CharSequence sequence = Html.fromHtml(html);
         SpannableStringBuilder strBuilder = new SpannableStringBuilder(sequence);
         URLSpan[] urls = strBuilder.getSpans(0, sequence.length(), URLSpan.class);
-        for(URLSpan span : urls){
-            makeLinkClickable(strBuilder,span);
+        if(urls.length == 0){
             t.setText(strBuilder);
-            t.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+        else {
+            for (URLSpan span : urls) {
+                makeLinkClickable(strBuilder, span);
+                t.setText(strBuilder);
+                t.setMovementMethod(LinkMovementMethod.getInstance());
+            }
         }
     }
 
