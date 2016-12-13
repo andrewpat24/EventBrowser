@@ -30,6 +30,7 @@ public class StoryListFragment extends Fragment {
     private Adapter mAdapter;
     private SwipeRefreshLayout mSwipeContainer;
     private TextView mTextView;
+    private String mSearchQuery;
 
     public StoryListFragment() {
         // Required empty public constructor
@@ -86,12 +87,14 @@ public class StoryListFragment extends Fragment {
         mTextView = (TextView) mView.findViewById(R.id.tvEmptyRecyclerView);
         mTextView.setVisibility(View.GONE);
 
+        mSearchQuery = "";
         updateUI(getArguments().getString(ARG_PARAM1));
 
         return mView;
     }
 
     public void updateUI(String query){
+        mSearchQuery = query;
         if(mAdapter == null)
             mAdapter = new Adapter(this);
 
@@ -124,7 +127,7 @@ public class StoryListFragment extends Fragment {
     }
 
     protected void fetchLatest(){
-        updateUI("");
+        updateUI(mSearchQuery);
     }
 
 }
