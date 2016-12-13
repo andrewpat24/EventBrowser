@@ -107,12 +107,14 @@ public class StoryListFragment extends Fragment {
                         mRecyclerView.invalidate();
                         mAdapter.updateDataSet(stories);
                         mRecyclerView.setAdapter(mAdapter);
-                        mSwipeContainer.setRefreshing(false);
+
                     }
                     else{
                         mTextView.setVisibility(View.VISIBLE);
                         mRecyclerView.setVisibility(View.GONE);
+
                     }
+                    mSwipeContainer.setRefreshing(false);
                 }
 
                 @Override
@@ -120,6 +122,7 @@ public class StoryListFragment extends Fragment {
                     mTextView.setVisibility(View.VISIBLE);
                     mRecyclerView.setVisibility(View.GONE);
                     Toast.makeText(StoryListFragment.this.getActivity(), "Failed to retrieve data", Toast.LENGTH_SHORT).show();
+                    mSwipeContainer.setRefreshing(false);
                 }
             });
             storyLibrary.cancelAllRequests();
