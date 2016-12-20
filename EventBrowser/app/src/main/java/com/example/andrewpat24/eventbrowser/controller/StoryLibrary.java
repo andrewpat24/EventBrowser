@@ -8,6 +8,7 @@ import com.android.volley.VolleyError;
 import com.example.andrewpat24.eventbrowser.Config;
 import com.example.andrewpat24.eventbrowser.interfaceAPI.WebMessenger;
 import com.example.andrewpat24.eventbrowser.app.App;
+import com.example.andrewpat24.eventbrowser.model.Story;
 import com.example.andrewpat24.eventbrowser.requestHandler.JsonArrayRequest;
 
 import java.util.ArrayList;
