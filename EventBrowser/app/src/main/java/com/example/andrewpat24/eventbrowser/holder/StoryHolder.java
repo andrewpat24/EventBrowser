@@ -2,6 +2,7 @@ package com.example.andrewpat24.eventbrowser.holder;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -42,6 +43,7 @@ public class StoryHolder extends RecyclerView.ViewHolder implements View.OnClick
 
         mStoryName = (TextView) itemView.findViewById(R.id.list_story_name);
         mStoryDescription = (TextView) itemView.findViewById(R.id.list_story_description);
+        mStoryDescription.setTypeface(null, Typeface.NORMAL);
         mImageView = (ImageView) itemView.findViewById(R.id.list_story_image);
 
         itemView.setOnClickListener(this);
@@ -51,7 +53,10 @@ public class StoryHolder extends RecyclerView.ViewHolder implements View.OnClick
         mStory = story;
 
         mStoryName.setText(mStory.getName());
-        mStoryDescription.setText(Html.fromHtml(mStory.getDescription()));
+        String description = mStory.getDescription();
+        description = description.replaceAll("<\\/?[bi]>", "");
+        mStoryDescription.setText(Html.fromHtml(description).toString());
+
 //      mImageView.setBackgroundResource(mStory.getImageResourceID());
         ImageRequest request = new ImageRequest(mStory.getImage(),
                 new Response.Listener<Bitmap>() {
