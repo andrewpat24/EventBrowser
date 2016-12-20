@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:id="@+id/card_container_fragment"
         android:backgroundTint="#e9e5e5"
-        android:background="@drawable/feels"/>
+        android:background="@drawable/background"/>
 
     <FrameLayout
         android:layout_width="match_parent"
