@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.andrewpat24.eventbrowser.R;
-import com.example.andrewpat24.eventbrowser.controller.Story;
+import com.example.andrewpat24.eventbrowser.model.Story;
 import com.example.andrewpat24.eventbrowser.holder.StoryHolder;
 
 import java.util.ArrayList;

@@ -10,9 +10,8 @@ import android.support.v4.app.FragmentManager;
 import android.view.View;
 
 import com.example.andrewpat24.eventbrowser.R;
-import com.example.andrewpat24.eventbrowser.controller.Story;
+import com.example.andrewpat24.eventbrowser.model.Story;
 import com.example.andrewpat24.eventbrowser.fragment.StoryFragment;
-import com.google.android.gms.maps.MapFragment;
 
 import java.util.UUID;
 

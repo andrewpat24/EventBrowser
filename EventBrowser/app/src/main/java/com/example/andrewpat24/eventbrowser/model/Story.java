@@ -1,6 +1,8 @@
-package com.example.andrewpat24.eventbrowser.controller;
+package com.example.andrewpat24.eventbrowser.model;
 
 import android.util.Log;
+
+import com.example.andrewpat24.eventbrowser.controller.StoryLibrary;
 
 import org.json.JSONArray;
 import org.json.JSONException;

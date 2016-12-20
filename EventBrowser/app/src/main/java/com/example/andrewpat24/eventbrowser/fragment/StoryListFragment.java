@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.andrewpat24.eventbrowser.R;
-import com.example.andrewpat24.eventbrowser.controller.Story;
+import com.example.andrewpat24.eventbrowser.model.Story;
 import com.example.andrewpat24.eventbrowser.controller.StoryLibrary;
 import com.example.andrewpat24.eventbrowser.adapter.Adapter;
 
@@ -51,7 +51,7 @@ public class StoryListFragment extends Fragment {
         mView = inflater.inflate(R.layout.story_list_fragment_layout, container, false);
         mRecyclerView = (RecyclerView) mView.findViewById(R.id.card_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.addItemDecoration(new VerticalSpaceItemDecorator(5));
+        mRecyclerView.addItemDecoration(new VerticalSpaceItemDecorator(20));
         mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -137,14 +137,18 @@ public class StoryListFragment extends Fragment {
 
 class VerticalSpaceItemDecorator extends RecyclerView.ItemDecoration {
     private final int spacer;
+//    private final int horizontalSpacer;
 
     public VerticalSpaceItemDecorator(int spacer) {
         this.spacer = spacer;
+//        this.horizontalSpacer
     }
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
         outRect.top = spacer;
+        outRect.right = spacer;
+        outRect.left = spacer;
     }
 }

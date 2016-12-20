@@ -20,7 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.example.andrewpat24.eventbrowser.R;
-import com.example.andrewpat24.eventbrowser.controller.Story;
+import com.example.andrewpat24.eventbrowser.model.Story;
 import com.example.andrewpat24.eventbrowser.interfaceAPI.WebMessenger;
 import com.example.andrewpat24.eventbrowser.activity.WebViewActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
