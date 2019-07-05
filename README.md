@@ -1,4 +1,4 @@
-#Project-2 Story Finder Finale
+# Project-2 Story Finder Finale
 #### Team Number
 
 Team Five (Oh)
