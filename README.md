@@ -28,7 +28,7 @@ Here are the **inputs** into your program:
 * List of cards
 * Cards should contain adequate material based on the API you decide to use(look at the meetup example below).
 
-#####Example API: Meetup API
+##### Example API: Meetup API
 
 * If you use the Meetup API, your cards should have Pictures of the Meetup, number of attendies, name, ID(obtained from the API), description, Link, etc.
 * The cards populated should use the devices location in order to suggest cards nearby.
@@ -37,7 +37,7 @@ Here are the **inputs** into your program:
 * You could also use Postman to play around with the API.
 
 
-##Requirements:
+## Requirements:
 These requirements are divided into tiers, you are required to complete all the tiers for a full grade.
 
 **Tier 1 (25% of grade acheived):**
@@ -65,7 +65,7 @@ These requirements are divided into tiers, you are required to complete all the 
 * Another Ex: Ability to view videos if using the IMDB API
 
 
-##Submission
+## Submission
 * You must push your code onto GitHub before the deadline.
 * You must create a Video (minimum 30 seconds, upto 10 mins max) that demonstrates the app working. This video is your chance to explain to us how you implemented the requirements and any other project details. Upload the video as an Unlisted video on Youtube, and add its link onto this README.
 * Document any and all **extra work**(outside of the requirements) into the video.
